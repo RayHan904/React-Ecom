@@ -43,3 +43,20 @@ const StripeCheckoutButton = ({ price }) => {
 };
 
 export default StripeCheckoutButton;
+
+
+
+
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  match /users/{userId} {
+  allow get, write: if request.auth != null && request.auth.uId == userId;
+  }
+  match /collections/{collection} {
+  allow read:
+  allow write: if request.auth != null && request.auth.uId == 'Gu2dooLn4oNjEorNsajbfeEPy4Q2'
+      }
+    }
+  }
