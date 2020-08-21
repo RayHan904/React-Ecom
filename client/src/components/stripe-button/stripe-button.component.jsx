@@ -1,41 +1,41 @@
-import React from 'react';
-import StripeCheckout from 'react-stripe-checkout';
-import axios from 'axios';
+import React from "react";
+import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
 
 const StripeCheckoutButton = ({ price }) => {
   const priceForStripe = price * 100;
-  const publishableKey = 'pk_test_XueucQc2nyIx5dP6ztORQNTr00C0HSKAkt';
+  const publishableKey = "pk_test_XueucQc2nyIx5dP6ztORQNTr00C0HSKAkt";
 
-  const onToken = token => {
+  const onToken = (token) => {
     axios({
-      url: 'payment',
-      method: 'post',
+      url: "payment",
+      method: "post",
       data: {
         amount: priceForStripe,
-        token: token
-      }
+        token: token,
+      },
     })
-      .then(response => {
-        alert('succesful payment');
+      .then((response) => {
+        alert("succesful payment");
       })
-      .catch(error => {
-        console.log('Payment Error: ', error);
+      .catch((error) => {
+        console.log("Payment Error: ", error);
         alert(
-          'There was an issue with your payment! Please make sure you use the provided credit card.'
+          "There was an issue with your payment! Please make sure you use the provided credit card."
         );
       });
   };
 
   return (
     <StripeCheckout
-      label='Pay Now'
-      name='CRWN Clothing Ltd.'
+      label="Pay Now"
+      name="CRWN Clothing Ltd."
       billingAddress
       shippingAddress
-      image='https://svgshare.com/i/CUz.svg'
+      image="https://svgshare.com/i/CUz.svg"
       description={`Your total is $${price}`}
       amount={priceForStripe}
-      panelLabel='Pay Now'
+      panelLabel="Pay Now"
       token={onToken}
       stripeKey={publishableKey}
     />
@@ -43,20 +43,3 @@ const StripeCheckoutButton = ({ price }) => {
 };
 
 export default StripeCheckoutButton;
-
-
-
-
-
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-  match /users/{userId} {
-  allow get, write: if request.auth != null && request.auth.uId == userId;
-  }
-  match /collections/{collection} {
-  allow read:
-  allow write: if request.auth != null && request.auth.uId == 'Gu2dooLn4oNjEorNsajbfeEPy4Q2'
-      }
-    }
-  }
